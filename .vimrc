@@ -11,13 +11,13 @@ map <Leader>[ :tabprevious<cr>
 map <Leader>] :tabnext<cr>
 nnoremap <F9> :!%:p
 nnoremap <leader>r :!ruby %:p
+inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 " window
 nmap <leader>sw<left>  :topleft  vnew<CR>
 nmap <leader>sw<right> :botright vnew<CR>
 nmap <leader>sw<up>    :topleft  new<CR>
 command! Q q " Bind :Q to :q
 command! Qall qall
-
 """""""""""""""""""""""""
 " Basic features
 """""""""""""""""""""""""
@@ -25,7 +25,6 @@ command! Qall qall
 " Display options
 syntax on
 set pastetoggle=<F12>
-set cursorline
 set number
 set list!                       " Display unprintable characters
 set listchars=tab:▸\ ,trail:•,extends:»,precedes:«
@@ -53,6 +52,7 @@ set autoindent smartindent
 set smarttab                    " Make <tab> and <backspace> smarter
 set tabstop=2
 set shiftwidth=2
+set expandtab
 set incsearch
 set magic
 " viminfo: remember certain things when we exit
@@ -97,3 +97,11 @@ autocmd BufReadPost *
     \     exe "normal g'\"" |
     \ endif |
 
+function! InsertTabWrapper()
+    let col = col('.') - 1
+    if !col || getline('.')[col - 1] !~ '\k'
+        return "\<tab>"
+    else
+        return "\<c-p>"
+    endif
+endfunction
