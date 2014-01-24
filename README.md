@@ -1,6 +1,6 @@
 vim-tiny
 ========
 
-Basic Vim config for to make vim usable for basic editing.
+Enhanced some default settings to make vim usable for basic file editing on servers.
 
 `wget https://raw.github.com/gacha/vim-tiny/master/.vimrc -O ~/.vimrc && mkdir -p ~/.vim/swap`
